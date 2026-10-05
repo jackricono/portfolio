@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const projects = [
+  { number:'01', href:'/projects/nvme-driver', title:'Kernel-Space NVMe Driver', type:'Systems / C / OS', text:'Minimal NVMe 1.4 implementation targeting QEMU, with queue synchronization, polling-based completion, kernel integration, and validation.' },
+  { number:'02', href:'/projects/transcriptomics', title:'C3 → CAM Transcriptomics', type:'Scientific Computing / Bioinformatics', text:'Low-cost CO₂ sensing and Nanopore transcriptomics used to investigate drought-induced CAM behavior in Coleus amboinicus.' },
+  { number:'03', href:'/projects/observatory', title:'Observatory Computing Network', type:'Infrastructure / FreeBSD / Networking', text:'A self-managed local server, network, storage system, and web interface for an astronomy club’s astrophotography workflow.' },
+];
+---
+<BaseLayout title="Projects — Jack Riconosciuto">
+  <div class="container">
+    <div class="page-intro">
+      <div class="eyebrow">Projects</div>
+      <h1>Engineering case studies.</h1>
+      <p class="lede">A mix of operating systems, scientific computing, and infrastructure work. Each project focuses on what was built, how it worked, and what I learned from making it run.</p>
+    </div>
+
+    <div class="project-list">
+      {projects.map((p) => <a class="project-row" href={p.href}>
+        <div class="project-row-number">{p.number}</div>
+        <div class="project-row-main">
+          <div class="eyebrow">{p.type}</div>
+          <h2>{p.title}</h2>
+          <p>{p.text}</p>
+        </div>
+        <div class="project-row-arrow" aria-hidden="true">↗</div>
+      </a>)}
+    </div>
+  </div>
+</BaseLayout>

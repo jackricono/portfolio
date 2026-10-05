@@ -1,0 +1,38 @@
+---
+import '../styles/global.css';
+const { title = 'Jack Riconosciuto', description = 'Computer science, systems, and scientific computing.' } = Astro.props;
+const path = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="container nav" aria-label="Primary navigation">
+        <a class="brand" href="/">Jack Riconosciuto</a>
+        <div class="nav-links">
+          <a class:list-active={path.startsWith('/projects')} href="/projects">Projects</a>
+          <a class:list-active={path === '/about'} href="/about">About</a>
+          <a class:list-active={path === '/resume'} href="/resume">Résumé</a>
+          <a href="mailto:jackricono@gmail.com">Email</a>
+        </div>
+      </nav>
+    </header>
+    <main><slot /></main>
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span>Jack Riconosciuto · Computer Science · Systems · Scientific Computing</span>
+        <div class="footer-links">
+          <a href="https://github.com/jackricono">GitHub</a>
+          <a href="https://www.linkedin.com/in/jack-riconosciuto-814595337">LinkedIn</a>
+          <a href="mailto:jackricono@gmail.com">Email</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

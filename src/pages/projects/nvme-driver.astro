@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Kernel-Space NVMe Driver — Jack Riconosciuto">
+  <div class="container prose">
+    <div class="eyebrow">Systems · C · Operating Systems</div>
+    <h1>Kernel-Space NVMe Driver</h1>
+    <p class="lede">A focused NVMe 1.4 implementation for the Nautilus research operating system, followed by hands-on kernel integration and end-to-end validation.</p>
+
+    <div class="meta">
+      <div><span class="meta-label">Specification</span>NVMe 1.4</div>
+      <div><span class="meta-label">Target</span>QEMU</div>
+      <div><span class="meta-label">Language</span>C</div>
+    </div>
+
+    <h2>The problem</h2>
+    <p>We needed a working NVMe block device for the Nautilus operating system environment used in the project. Rather than attempting to implement the entire NVMe specification, my partner and I built a deliberately small implementation around the functionality needed by the target QEMU device.</p>
+
+    <h2>Architecture</h2>
+    <section class="architecture">
+  <div class="section-label">ARCHITECTURE</div>
+  <div class="diagram" aria-label="NVMe driver architecture">
+    <div class="node kernel">CLASSROOM KERNEL</div>
+    <div class="arrow">↓</div>
+    <div class="node driver">NVMe DRIVER</div>
+    <div class="arrow">↓</div>
+    <div class="queues">
+      <div class="queue-group">
+        <div class="node">ADMIN QUEUES</div>
+        <div class="small-label">Submission · Completion</div>
+      </div>
+      <div class="queue-group">
+        <div class="node">I/O QUEUES</div>
+        <div class="small-label">Submission · Completion</div>
+      </div>
+    </div>
+    <div class="arrow">↓</div>
+    <div class="node">QEMU NVMe 1.4</div>
+    <div class="diagram-notes">
+      <div><strong>Synchronization</strong> Semaphores</div>
+      <div><strong>Completions</strong> Polling</div>
+      <div><strong>Initialization</strong> Admin → I/O queue</div>
+    </div>
+  </div>
+</section>
+    <p>The driver first creates an administrative submission/completion queue pair. It then submits the administrative commands required to create an I/O queue. I/O is handled through polling rather than interrupts, while semaphores guard the shared queues and provide the synchronization needed for concurrent access.</p>
+
+    <h2>Implementation</h2>
+    <p>The original driver and ring-buffer work was a joint effort with my partner. The implementation is intentionally focused: enough of NVMe 1.4 to communicate with the QEMU device and provide the block-device functionality required by the surrounding kernel.</p>
+    <div class="feature-grid">
+      <div class="feature">
+        <span class="feature-label">Queue initialization</span>
+        <p>Builds the administrative submission/completion queue pair and uses administrative commands to establish the I/O queue.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-label">Polling</span>
+        <p>Uses polling to observe command completions instead of an interrupt-driven completion path.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-label">Concurrency</span>
+        <p>Uses semaphores to protect shared queue state while allowing the driver to operate in a concurrent kernel environment.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-label">Ring buffers</span>
+        <p>Includes a small ring-buffer abstraction used by the driver to manage queue-oriented data structures.</p>
+      </div>
+    </div>
+
+    <h2>My contributions</h2>
+    <p>The project had two distinct phases for me: joint implementation of the driver, followed by individual integration and validation work.</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-number">01</span>
+        <div><h3>Implement</h3><p>Co-designed and implemented the NVMe driver and ring-buffer infrastructure with a partner, producing the four project-specific source and header files.</p></div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-number">02</span>
+        <div><h3>Integrate</h3><p>Personally brought the driver into the classroom version of the kernel and worked through its interactions with the existing kernel environment.</p></div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-number">03</span>
+        <div><h3>Validate</h3><p>Got higher-level systems working on top of the driver, including a filesystem and a memory-paging system, and verified that the integrated implementation passed the relevant tests.</p></div>
+      </div>
+    </div>
+
+    <h2>Code</h2>
+    <p>The original implementation lives inside a larger Nautilus kernel repository. These are the four files my partner and I created:</p>
+    <div class="code-links">
+      <a href="https://github.com/taliabn/nautilus-nvme/blob/integrate-nvme/src/dev/nvme.c"><span>01</span>nvme.c</a>
+      <a href="https://github.com/taliabn/nautilus-nvme/blob/integrate-nvme/include/dev/nvme.h"><span>02</span>nvme.h</a>
+      <a href="https://github.com/taliabn/nautilus-nvme/blob/integrate-nvme/src/nautilus/ringbuffer.c"><span>03</span>ringbuffer.c</a>
+      <a href="https://github.com/taliabn/nautilus-nvme/blob/integrate-nvme/include/nautilus/ringbuffer.h"><span>04</span>ringbuffer.h</a>
+    </div>
+    <div class="callout">The repository contains the larger kernel. The four files above are the files my partner and I created; the subsequent classroom-kernel integration and validation work described here was my individual contribution.</div>
+  </div>
+</BaseLayout>
+
+<style>
+.architecture { margin-top: 4rem; }
+.diagram {
+  margin-top: 1.5rem;
+  padding: 2rem;
+  border: 1px solid var(--border, #d8d8d8);
+  background: #fafaf8;
+  text-align: center;
+}
+.node {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.25rem;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid currentColor;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.node.driver { color: var(--accent, #176b68); }
+.arrow { margin: 0.65rem 0; font-size: 1.2rem; }
+.queues {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.queue-group { min-width: 12rem; }
+.small-label {
+  margin-top: 0.5rem;
+  font-size: 0.72rem;
+  color: #666;
+}
+.diagram-notes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #ddd;
+  text-align: left;
+  font-size: 0.78rem;
+}
+.diagram-notes div { display: grid; gap: 0.2rem; }
+.diagram-notes strong {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+}
+@media (max-width: 700px) {
+  .diagram { padding: 1.25rem; }
+  .diagram-notes { grid-template-columns: 1fr; }
+  .node { white-space: normal; }
+}
+</style>

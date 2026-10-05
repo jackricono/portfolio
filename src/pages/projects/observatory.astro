@@ -1,0 +1,274 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Observatory Computing & Networking — Jack Riconosciuto">
+  <div class="container prose">
+    <div class="eyebrow">Infrastructure · FreeBSD · Networking · Storage</div>
+    <h1>Observatory Computing & Networking</h1>
+    <p class="lede">A local computing and storage system for an astrophotography club, built around repurposed hardware and designed for large RAW image datasets.</p>
+
+    <div class="meta">
+      <div><span class="meta-label">Platform</span>FreeBSD</div>
+      <div><span class="meta-label">Network</span>Wired LAN + Wi‑Fi</div>
+      <div><span class="meta-label">Focus</span>Storage / Services</div>
+    </div>
+
+    <h2>Overview</h2>
+    <p>I designed and implemented the observatory's computing and networking infrastructure independently, with one exception: I worked with a friend on the physical construction of the server computer itself. The resulting system gives students a shared local environment for storing and processing large astrophotography files.</p>
+
+    <p>The server is a repurposed “Frankenstein” PC assembled from discarded school computers. It runs FreeBSD and provides shared storage and a simple web-based file interface over the observatory's local network.</p>
+
+    <h2>System architecture</h2>
+    <div class="architecture" aria-label="Observatory local network architecture">
+      <div class="campus-node">CAMPUS NETWORK</div>
+      <div class="connector">│</div>
+      <div class="router-node">ROUTER</div>
+      <div class="connector">│</div>
+      <div class="lan-label">OBSERVATORY LAN</div>
+      <div class="lan-box">
+        <div class="wired-column">
+          <div class="branch-label">WIRED ETHERNET</div>
+          <div class="device-row">
+            <div class="device">
+              <strong>FreeBSD Server</strong>
+              <span>RAW storage · HTTP file service</span>
+            </div>
+            <div class="device">
+              <strong>3 × iMacs</strong>
+              <span>Windows / macOS · processing software</span>
+            </div>
+          </div>
+        </div>
+        <div class="wifi-column">
+          <div class="branch-label">WI‑FI</div>
+          <div class="device">
+            <strong>Student laptops</strong>
+            <span>Local access to shared files and services</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Storage and file service</h2>
+    <p>Astrophotography produces very large RAW files, so the server is both a shared repository and a useful place to centralize processing data. Students can access files from the wired iMacs or from laptops connected to the local network over Wi‑Fi.</p>
+
+    <div class="pipeline" aria-label="File storage pipeline">
+      <div class="pipeline-step"><span>01</span><strong>Upload</strong><small>Client sends file over HTTP</small></div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-step"><span>02</span><strong>Compress</strong><small>Server losslessly compresses data</small></div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-step"><span>03</span><strong>Store</strong><small>Compressed data remains on server</small></div>
+    </div>
+
+    <p class="secondary-pipeline"><strong>Download:</strong> stored data is decompressed by the server before being returned to the client.</p>
+
+    <h2>What I built</h2>
+    <ul>
+      <li>Configured and maintained the FreeBSD server and its local services.</li>
+      <li>Designed the observatory's local network around a wired LAN with Wi‑Fi access for student laptops.</li>
+      <li>Connected the server and three repurposed iMacs to the wired LAN.</li>
+      <li>Created a simple local web interface that provides a Google Drive-style file experience over HTTP.</li>
+      <li>Designed the storage workflow around large RAW astrophotography files.</li>
+      <li>Implemented lossless compression on uploads and automatic decompression on downloads, using spare server CPU capacity to reduce storage requirements.</li>
+      <li>Configured the three iMacs for Windows/macOS dual boot and preloaded them with astrophotography processing software.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Project ownership</strong>
+      <p>I designed and implemented the computing, networking, storage, and software infrastructure independently. The physical construction of the server was collaborative.</p>
+    </div>
+
+    <div class="photo-placeholder">
+      <span class="placeholder-label">PHOTO — TO BE ADDED</span>
+      <p>A photo of the server, network setup, or observatory workstation can go here.</p>
+    </div>
+
+    <div class="callout">This project has no public GitHub repository. This case study is therefore the primary technical record of the system.</div>
+  </div>
+</BaseLayout>
+
+<style>
+  .architecture {
+    margin: 2rem 0 3rem;
+    padding: 2rem;
+    border: 1px solid #d8d8d8;
+    background: #fafaf8;
+    text-align: center;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  .campus-node,
+  .router-node,
+  .device {
+    border: 1px solid #222;
+    background: white;
+  }
+
+  .campus-node,
+  .router-node {
+    display: inline-flex;
+    min-height: 2.8rem;
+    padding: .65rem 1.1rem;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: .06em;
+    font-size: .76rem;
+  }
+
+  .router-node {
+    border-color: var(--accent, #176b68);
+    color: var(--accent, #176b68);
+  }
+
+  .connector {
+    height: 1.7rem;
+    line-height: 1.7rem;
+    color: #777;
+  }
+
+  .lan-label {
+    display: inline-block;
+    margin: .5rem 0 1rem;
+    color: var(--accent, #176b68);
+    font-size: .72rem;
+    letter-spacing: .1em;
+  }
+
+  .lan-box {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #bbb;
+    text-align: left;
+  }
+
+  .wired-column,
+  .wifi-column {
+    min-width: 0;
+  }
+
+  .wired-column {
+    padding-right: 1rem;
+    border-right: 1px solid #ddd;
+  }
+
+  .branch-label {
+    margin-bottom: .65rem;
+    font-size: .66rem;
+    letter-spacing: .08em;
+    color: #666;
+  }
+
+  .device-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .75rem;
+  }
+
+  .device {
+    display: grid;
+    gap: .35rem;
+    padding: .85rem;
+  }
+
+  .device strong {
+    font-size: .78rem;
+    letter-spacing: .02em;
+  }
+
+  .device span {
+    color: #666;
+    font-family: inherit;
+    font-size: .67rem;
+    line-height: 1.45;
+  }
+
+  .pipeline {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: .8rem;
+    align-items: stretch;
+    margin: 2rem 0 1rem;
+  }
+
+  .pipeline-step {
+    display: grid;
+    gap: .35rem;
+    padding: 1rem;
+    border: 1px solid #d8d8d8;
+    background: #fafaf8;
+  }
+
+  .pipeline-step span {
+    color: var(--accent, #176b68);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: .7rem;
+  }
+
+  .pipeline-step strong {
+    font-size: .9rem;
+  }
+
+  .pipeline-step small {
+    color: #666;
+    line-height: 1.4;
+  }
+
+  .pipeline-arrow {
+    align-self: center;
+    color: #888;
+  }
+
+  .secondary-pipeline {
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent, #176b68);
+  }
+
+  .photo-placeholder {
+    min-height: 12rem;
+    margin: 3rem 0 1.5rem;
+    padding: 2rem;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    text-align: center;
+    border: 1px dashed #aaa;
+    background: #fafaf8;
+  }
+
+  .placeholder-label {
+    color: var(--accent, #176b68);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: .7rem;
+    letter-spacing: .08em;
+  }
+
+  .photo-placeholder p {
+    margin: .7rem 0 0;
+    color: #666;
+  }
+
+  @media (max-width: 700px) {
+    .architecture {
+      padding: 1rem;
+    }
+
+    .lan-box,
+    .device-row,
+    .pipeline {
+      grid-template-columns: 1fr;
+    }
+
+    .wired-column {
+      padding-right: 0;
+      padding-bottom: 1rem;
+      border-right: 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .pipeline-arrow {
+      transform: rotate(90deg);
+    }
+  }
+</style>

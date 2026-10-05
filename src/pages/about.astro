@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="About — Jack Riconosciuto">
+  <div class="container prose page-shell">
+    <div class="eyebrow">About</div>
+    <h1>Computer science with a systems bent.</h1>
+    <p class="lede">I’m a computer science student at Northwestern University interested in operating systems, low-level programming, performance, scientific computing, and the infrastructure that makes experiments possible.</p>
+
+    <div class="feature-grid">
+      <div class="feature"><span class="feature-label">Systems</span><p>Operating systems, kernel development, memory behavior, concurrency, synchronization, and performance.</p></div>
+      <div class="feature"><span class="feature-label">Scientific computing</span><p>Computational pipelines that connect measurements, experiments, data, and analysis.</p></div>
+      <div class="feature"><span class="feature-label">Infrastructure</span><p>Networking, storage, Linux/Unix environments, and practical systems built for other people to use.</p></div>
+      <div class="feature"><span class="feature-label">Communication</span><p>Teaching, mentoring, observatory outreach, and explaining technical systems clearly.</p></div>
+    </div>
+
+    <h2>Technical interests</h2>
+    <p>C, C++, Python, Scheme, and Assembly; memory usage and cache locality; multithreading and synchronization; SIMD; graph theory, linear algebra, Fourier analysis, automata theory, and functional analysis.</p>
+
+    <h2>Selected experience</h2>
+    <div class="timeline">
+      <div class="timeline-item"><div class="timeline-number">01</div><div><h3>CS Department Peer Mentor</h3><p>Teaching staff for CS 343 and peer mentor for CS 446.</p></div></div>
+      <div class="timeline-item"><div class="timeline-number">02</div><div><h3>Dearborn Observatory Guide</h3><p>Telescope operation, legacy computer maintenance, and science communication.</p></div></div>
+      <div class="timeline-item"><div class="timeline-number">03</div><div><h3>Research / internship experience</h3><p>Scientific and computational work spanning Fermilab, Brookhaven, and Northwestern projects.</p></div></div>
+    </div>
+
+    <h2>Education</h2>
+    <p><strong>Northwestern University</strong> · Computer Science major, Spanish minor · expected 2027</p>
+    <p>Relevant coursework includes Operating Systems, Kernel Development, Microcontrollers, Networking, Data Structures & Algorithms, Programming Languages, Linear Algebra, Theory of Computation, and Probability.</p>
+
+    <div class="actions"><a class="button primary" href="/projects">See selected work →</a><a class="button" href="/resume">View résumé</a></div>
+  </div>
+</BaseLayout>
+
+<style>
+  .about-photo {
+    width: 220px;
+    margin: 0 0 2.5rem;
+  }
+  .about-photo img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 22%;
+    border-radius: 2px;
+    filter: saturate(.9);
+  }
+</style>

@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="C3 → CAM Transcriptomics — Jack Riconosciuto">
+  <div class="container prose">
+    <div class="eyebrow">Scientific Computing · Bioinformatics · Embedded Sensing</div>
+    <h1>C3 → CAM Transcriptomics</h1>
+    <p class="lede">Low-cost CO₂ sensing, Nanopore sequencing, and HPC bioinformatics used to investigate drought-induced CAM behavior in <i>Coleus amboinicus</i>.</p>
+
+    <div class="meta">
+      <div><span class="meta-label">Course</span>Data-driven Plant Science</div>
+      <div><span class="meta-label">Sequencing</span>Oxford Nanopore</div>
+      <div><span class="meta-label">Compute</span>Northwestern Quest HPC</div>
+    </div>
+
+    <h2>Overview</h2>
+    <p>The project investigated how <i>Coleus amboinicus</i> switches from C3 photosynthesis toward CAM under drought stress. Our workflow combined controlled plant growth, a low-cost Arduino-based sensing system, comparative RNA sequencing, and computational analysis.</p>
+
+    <p>CAM plants fix CO₂ at night. We used changes in CO₂ and humidity around enclosed leaves to distinguish CAM behavior, then paired the physiological measurements with transcriptomic analysis to investigate potential genetic drivers of the response.</p>
+
+    <h2>Experimental pipeline</h2>
+    <div class="pipeline-grid">
+      <div class="pipeline-card"><span>01</span><strong>Controlled growth</strong><p>Plants were grown under controlled light and water conditions, with well-watered C3 and drought-stressed CAM conditions.</p></div>
+      <div class="pipeline-card"><span>02</span><strong>Low-cost sensing</strong><p>An Arduino-based system recorded CO₂, humidity, soil moisture, and temperature at six-second intervals.</p></div>
+      <div class="pipeline-card"><span>03</span><strong>Leaf sampling</strong><p>Leaf tissue was collected at two circadian time points and prepared for RNA extraction and cDNA conversion.</p></div>
+      <div class="pipeline-card"><span>04</span><strong>Nanopore sequencing</strong><p>Barcoded cDNA was sequenced on an Oxford Nanopore MinION for long-read transcript analysis.</p></div>
+    </div>
+
+    <h2>Computational workflow</h2>
+    <div class="workflow" aria-label="Transcriptomics computational workflow">
+      <div class="workflow-row">
+        <div class="workflow-node">Nanopore reads</div>
+        <div class="workflow-arrow">→</div>
+        <div class="workflow-node">NanoPlot / NanoFilt</div>
+        <div class="workflow-arrow">→</div>
+        <div class="workflow-node">EPI2ME<br><small>transcriptome mapping</small></div>
+      </div>
+      <div class="workflow-branch">↓</div>
+      <div class="workflow-row">
+        <div class="workflow-node">RNAbloom<br><small>de novo assembly</small></div>
+        <div class="workflow-arrow">→</div>
+        <div class="workflow-node">DIAMOND<br><small>UniProt TrEMBL</small></div>
+        <div class="workflow-arrow">→</div>
+        <div class="workflow-node">topGO<br><small>functional annotation</small></div>
+      </div>
+    </div>
+
+    <p>All bioinformatics analyses were run on Northwestern's Quest HPC system through the command line. Because no public <i>C. amboinicus</i> reference genome was available, the workflow used a <i>Coleus barbatus</i> reference genome for alignment.</p>
+
+    <h2>Results</h2>
+    <div class="stats">
+      <div><strong>794,958</strong><span>Total reads</span></div>
+      <div><strong>83.82%</strong><span>Reads mapped successfully</span></div>
+      <div><strong>11 / 12</strong><span>Samples lost to RNA degradation</span></div>
+    </div>
+
+    <p>The low-cost CO₂ sensing system successfully distinguished CAM from C3 behavior. The drought-stressed plants showed nighttime CO₂ drawdown and humidity spikes, while the control group was more stable.</p>
+
+    <p>The RNA sequencing component was substantially limited by degradation during sample preparation: 11 of 12 samples were lost, leaving one surviving sample for transcriptomic analysis. That sample mapped successfully to the <i>C. barbatus</i> reference. Its recovered transcripts included functional categories associated with signaling and regulation, metabolism, photosynthesis, ribosomal/translation processes, stress/redox, and lipid/wax.</p>
+
+    <div class="callout">
+      <strong>How to interpret the result</strong>
+      <p>The transcriptomic findings are preliminary. With only one surviving sample, the project could not provide the depth or replication needed for strong statistical conclusions. The report instead treats the observed stress- and photosynthesis-associated transcripts as findings consistent with the hypothesis and identifies improved RNA handling as a key direction for future work.</p>
+    </div>
+
+    <h2>What I worked on</h2>
+    <ul>
+      <li>Contributed to the experimental and computational workflow for studying C3-to-CAM behavior.</li>
+      <li>Worked with the Arduino-based CO₂, humidity, and soil-moisture sensing system and its Python data analysis.</li>
+      <li>Worked with the Nanopore sequencing and transcriptomic analysis pipeline on Quest HPC.</li>
+      <li>Used command-line bioinformatics tools for read QC, filtering, transcriptome mapping, assembly, protein annotation, and Gene Ontology analysis.</li>
+      <li>Interpreted the computational results in the context of the physiological sensing data and the project's experimental limitations.</li>
+    </ul>
+
+    <h2>Code</h2>
+    <p><a class="button" href="https://github.com/jackricono/ColeusAmboinicusTranscriptomics">View pipeline repository →</a></p>
+  </div>
+</BaseLayout>
+
+<style>
+  .pipeline-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 2rem 0 3rem;
+  }
+
+  .pipeline-card {
+    padding: 1.25rem;
+    border: 1px solid #d8d8d8;
+    background: #fafaf8;
+  }
+
+  .pipeline-card span {
+    display: block;
+    margin-bottom: .7rem;
+    color: var(--accent, #176b68);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: .7rem;
+  }
+
+  .pipeline-card strong {
+    display: block;
+    margin-bottom: .45rem;
+  }
+
+  .pipeline-card p {
+    margin: 0;
+    color: #666;
+    font-size: .9rem;
+    line-height: 1.5;
+  }
+
+  .workflow {
+    margin: 2rem 0 3rem;
+    padding: 1.5rem;
+    border: 1px solid #d8d8d8;
+    background: #fafaf8;
+    text-align: center;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  .workflow-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: center;
+    gap: .7rem;
+  }
+
+  .workflow-node {
+    min-height: 3.2rem;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    padding: .75rem;
+    border: 1px solid #222;
+    background: white;
+    font-size: .72rem;
+    line-height: 1.4;
+  }
+
+  .workflow-node small {
+    color: #666;
+    font-size: .62rem;
+  }
+
+  .workflow-arrow,
+  .workflow-branch {
+    color: #888;
+  }
+
+  .workflow-branch {
+    margin: .6rem 0;
+    font-size: 1.1rem;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .stats > div {
+    padding: 1.25rem;
+    border-top: 2px solid var(--accent, #176b68);
+    background: #fafaf8;
+  }
+
+  .stats strong {
+    display: block;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 1.5rem;
+  }
+
+  .stats span {
+    display: block;
+    margin-top: .4rem;
+    color: #666;
+    font-size: .8rem;
+  }
+
+  @media (max-width: 700px) {
+    .pipeline-grid,
+    .stats {
+      grid-template-columns: 1fr;
+    }
+
+    .workflow-row {
+      grid-template-columns: 1fr;
+    }
+
+    .workflow-arrow {
+      transform: rotate(90deg);
+    }
+
+    .workflow-branch {
+      display: none;
+    }
+  }
+</style>
