@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="Resume — Jack Riconosciuto">
-  <div class="container prose page-shell">
+  <div class="container prose page-shell resume-page">
     <div class="eyebrow">Resume</div>
     <h1>Jack Riconosciuto</h1>
     <p class="lede">Computer Science · Systems · Scientific Computing</p>
@@ -13,26 +13,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <a href="https://www.linkedin.com/in/jack-riconosciuto-814595337">LinkedIn</a>
     </div>
 
-    <h2>Experience</h2>
-    <div class="timeline">
-      <div class="timeline-item"><div class="timeline-number">2025–</div><div><h3>CS Department Peer Mentor</h3><p>Teaching staff for CS 343 and peer mentor for CS 446.</p></div></div>
-      <div class="timeline-item"><div class="timeline-number">2024–</div><div><h3>Dearborn Observatory Guide</h3><p>Telescope operation, legacy computer maintenance, and science communication.</p></div></div>
-      <div class="timeline-item"><div class="timeline-number">2024</div><div><h3>Fermilab / Brookhaven National Laboratory Intern</h3><p>Research and computational experience in a scientific environment.</p></div></div>
-      <div class="timeline-item"><div class="timeline-number">2026</div><div><h3>Spanish Department Researcher</h3><p>Research experience at Northwestern.</p></div></div>
+    <div class="resume-actions">
+      <a class="text-link" href="/resume.pdf" target="_blank" rel="noopener">Open PDF ↗</a>
+      <a class="text-link" href="/resume.pdf" download>Download PDF ↓</a>
     </div>
 
-    <h2>Skills</h2>
-    <div class="skill-list">
-      <span>C</span><span>C++</span><span>Python</span><span>Scheme</span><span>Assembly</span><span>Git</span><span>GDB</span><span>Valgrind</span><span>Godbolt</span><span>Multithreading</span><span>Synchronization</span><span>SIMD</span><span>Performance analysis</span>
-    </div>
-
-    <h2>Selected projects</h2>
-    <ul>
-      <li><a href="/projects/nvme-driver">Kernel-Space NVMe Driver</a></li>
-      <li><a href="/projects/transcriptomics">C3 → CAM Transcriptomics</a></li>
-      <li><a href="/projects/observatory">Observatory Computing Network</a></li>
-    </ul>
-
-    <div class="resume-note"><strong>Looking for the full Resume?</strong><p>The portfolio version is intentionally concise. A PDF Resume can be added here when you are ready to publish the final file.</p></div>
+    <figure class="resume-preview">
+      <a class="resume-paper" href="/resume.pdf" target="_blank" rel="noopener" aria-label="Open Jack Riconosciuto's resume PDF">
+        <img src="/images/resume-preview.png" alt="Preview of Jack Riconosciuto's resume" />
+      </a>
+      <figcaption>Resume · PDF preview · Click the page to open the full document</figcaption>
+    </figure>
   </div>
 </BaseLayout>

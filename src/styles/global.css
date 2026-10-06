@@ -129,3 +129,14 @@ p { max-width:720px; }
   .project-row:hover { padding-left:8px; }
   .footer-inner { align-items:flex-start; flex-direction:column; }
 }
+
+.resume-actions { display:flex; gap:24px; margin:22px 0 34px; font: .82rem ui-monospace, SFMono-Regular, Menlo, monospace; }
+.resume-preview { margin:0; }
+.resume-paper { display:block; padding:14px; background:#f0f0ec; border:1px solid var(--line); box-shadow:0 12px 30px rgba(27,28,27,.08); transition:transform .15s ease, box-shadow .15s ease; }
+.resume-paper:hover { transform:translateY(-2px); box-shadow:0 16px 36px rgba(27,28,27,.12); }
+.resume-paper img { display:block; width:100%; height:auto; background:white; border:1px solid #d5d5d0; }
+.resume-preview figcaption { margin-top:12px; color:var(--muted); font: .72rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
+@media (max-width:760px) {
+  .resume-actions { flex-wrap:wrap; gap:14px 22px; }
+  .resume-paper { padding:8px; }
+}
