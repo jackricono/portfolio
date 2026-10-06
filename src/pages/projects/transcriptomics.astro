@@ -13,6 +13,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       <div><span class="meta-label">Compute</span>Northwestern Quest HPC</div>
     </div>
 
+    <figure class="project-photo">
+      <img src="/images/transcriptomics/plant-project-poster.jpg" alt="The project team presenting a poster on low-cost CO₂ sensing and C3-to-CAM photosynthesis in Coleus amboinicus" />
+      <figcaption>Poster presentation of the team's work on low-cost CO₂ sensing and transcriptomic analysis of C3/CAM photosynthesis. Photo published by <a href="https://www.mccormick.northwestern.edu/news/articles/2026/05/cultivating-data-driven-approaches-with-plant-science/">Northwestern McCormick School of Engineering</a>.</figcaption>
+    </figure>
+
     <h2>Overview</h2>
     <p>The project investigated how <i>Coleus amboinicus</i> switches from C3 photosynthesis toward CAM under drought stress. Our workflow combined controlled plant growth, a low-cost Arduino-based sensing system, comparative RNA sequencing, and computational analysis.</p>
 
@@ -78,6 +83,27 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style>
+.project-photo {
+    margin: 2rem 0 3rem;
+  }
+
+  .project-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #b9b9b4;
+    padding: 6px;
+    background: white;
+    box-sizing: border-box;
+  }
+
+  .project-photo figcaption {
+    margin-top: .65rem;
+    color: #666;
+    font-size: .78rem;
+    line-height: 1.5;
+  }
+
   .pipeline-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

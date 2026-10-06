@@ -78,9 +78,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       <p>I designed and implemented the computing, networking, storage, and software infrastructure independently. The physical construction of the server was collaborative.</p>
     </div>
 
-    <div class="photo-placeholder">
-      <span class="placeholder-label">PHOTO — TO BE ADDED</span>
-      <p>A photo of the server, network setup, or observatory workstation can go here.</p>
+    <div class="photo-gallery" aria-label="Observatory computing infrastructure photos">
+      <figure>
+        <img src="/images/observatory/observatory-workstations.jpg" alt="Observatory workstation area with repurposed iMacs and local computing equipment" loading="lazy" />
+        <figcaption>Observatory workstation area, including the repurposed iMacs used for astrophotography processing.</figcaption>
+      </figure>
+
+      <figure>
+        <img src="/images/observatory/observatory-server.jpg" alt="Repurposed observatory server with its case open" loading="lazy" />
+        <figcaption>The repurposed server assembled from discarded school hardware and used for local storage and services.</figcaption>
+      </figure>
     </div>
 
     <div class="callout">This project has no public GitHub repository. This case study is therefore the primary technical record of the system.</div>
@@ -225,28 +232,32 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     border-left: 2px solid var(--accent, #176b68);
   }
 
-  .photo-placeholder {
-    min-height: 12rem;
-    margin: 3rem 0 1.5rem;
-    padding: 2rem;
+  .photo-gallery {
     display: grid;
-    place-items: center;
-    align-content: center;
-    text-align: center;
-    border: 1px dashed #aaa;
-    background: #fafaf8;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 3rem 0 1.5rem;
   }
 
-  .placeholder-label {
-    color: var(--accent, #176b68);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: .7rem;
-    letter-spacing: .08em;
+  .photo-gallery figure {
+    margin: 0;
   }
 
-  .photo-placeholder p {
-    margin: .7rem 0 0;
+  .photo-gallery img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #b9b9b4;
+    padding: 6px;
+    background: white;
+    box-sizing: border-box;
+  }
+
+  .photo-gallery figcaption {
+    margin-top: .6rem;
     color: #666;
+    font-size: .78rem;
+    line-height: 1.5;
   }
 
   @media (max-width: 700px) {
@@ -270,5 +281,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     .pipeline-arrow {
       transform: rotate(90deg);
     }
+
+    .photo-gallery {
+      grid-template-columns: 1fr;
+    }
+
   }
 </style>
